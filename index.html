@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Kanban Board</title>
+    <style>
+        body{
+            background-color: #6c9e26;
+        }
+        #board {
+            display: table;
+            margin: 0;
+            padding: 0;
+            border-spacing: 5px;
+            width: 100%;
+            font: 14px "Helvetica Neue",Arial,Helvetica,sans-serif;
+        }
+        .section {
+            display: table-cell;
+            margin: 0;
+            background: #e2e4e6;
+            border-radius: 3px;
+            padding: 5px;
+            width: 20%;
+            height: 500px;
+
+        }
+        .section > h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 12pt;
+            text-align: center;
+        }
+        .card {
+            display: inline-block;
+            vertical-align: top;
+            margin: 5px 5px;
+            padding: 2px;
+            width: 90%;
+            height: 40px;
+            color: black;
+            background: #fff;
+            cursor: move;
+            text-align: center;
+            font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            box-shadow: 2px 2px 2px #eee;
+            border-bottom: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .card.placeholder{
+            background-color: #D8D8D8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kanban Board</h1>
+    
+    <div id="board">
+        <div id="new" class="section">
+            <h1>New</h1>
+            <div id="c2" class="card"><em>Proyecto 1</em></div>
+            <div id="c3" class="card"><em>Proyecto 2</em></div>
+            <div id="c5" class="card"><em>Proyecto 5</em></div>
+            <div id="c6" class="card"><em>Proyecto 6</em></div>
+            <div id="c7" class="card"><em>Proyecto 7</em></div>
+            <div id="c8" class="card"><em>Proyecto 8</em></div>
+            <div id="c9" class="card"><em>Proyecto 9</em></div>
+            <div id="c10" class="card"><em>Proyecto 10</em></div>
+            <div id="c11" class="card"><em>Proyecto 11</em></div>
+        </div>
+        <div id="qualification" class="section">
+            <h1>Qualification</h1>
+            <div id="c1" class="card"><em>Proyecto 3</em></div>
+        </div>
+        <div id="proposition" class="section">
+            <h1>Proposition</h1>
+            <div id="c4" class="card"><em>Proyecto 4</em></div>
+        </div>
+        <div id="won" class="section">
+            <h1>Won</h1>
+            <div id="c12" class="card"><em>Proyecto 12</em></div>
+            <div id="c13" class="card"><em>Proyecto 13</em></div>
+            <div id="c14" class="card"><em>Proyecto 14</em></div>
+            <div id="c15" class="card"><em>Proyecto 15</em></div>
+        </div>
+        <div id="lost" class="section">
+            <h1>Lost</h1>
+            <div id="c17" class="card"><em>Proyecto 17</em></div>
+            <div id="c18" class="card"><em>Proyecto 18</em></div>
+            <div id="c19" class="card"><em>Proyecto 19</em></div>
+            <div id="c16" class="card"><em>Proyecto 16</em></div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        var cards = document.querySelectorAll('.card');
+        for (var i = 0, n = cards.length; i < n; i++) {
+            var card = cards[i];
+            card.draggable = true;
+        };
+        var board = document.getElementById('board');
+        var hideMe;
+        var target;
+        board.onselectstart = function(e) {
+            e.preventDefault();
+        }
+        $("#board").on('dragstart', function(e){
+            e.data = {"card":e.target.id};
+            hideMe = e.target;
+            console.log(e);
+        });
+        /*board.ondragstart = function(e) {
+            hideMe = e.target;
+            e.dataTransfer.setData('card', e.target.id);
+            e.dataTransfer.effectAllowed = 'move';
+        };*/
+        board.ondragend = function(e) {
+            $(e.target).show();
+        };
+        var lastEneterd;
+        board.ondragenter = function(e) {
+            if (hideMe) {
+                $(hideMe).hide();
+                hideMe = null;
+            }
+            // Save this to check in dragleave.
+            lastEntered = e.target;
+            var section = closestWithClass(e.target, 'section');
+            // TODO: Check that it's not the original section.
+            if (section) {
+                e.preventDefault(); // Not sure if these needs to be here. Maybe for IE?
+                return false;
+            }
+        };
+        board.ondragover = function(e) {
+            target = e.target;
+            if(target.classList.contains("section")){
+                if(!$('.placeholder', target).length){
+                   var div =" <div class='card placeholder'></div>";
+                   $(target).append(div);
+                }
+            }else if(target.className == 'card'){
+                var context = closestWithClass(e.target, 'section');
+                var alto = e.target.clientHeight/2;
+                var target_id = e.target.id;
+                var div =" <div class='card placeholder'></div>";
+                $('.placeholder',context).remove();
+                if(e.offsetY > alto){
+                    //abajo
+                    if(e.target.nextElementSibling == null || !e.target.nextElementSibling.classList.contains("placeholder")){
+                        $(div).insertAfter("#"+target_id);
+                    }
+                }else{
+                    //arriba
+                    if(e.target.previousElementSibling == null || !e.target.previousElementSibling.classList.contains("placeholder")){
+                        $(div).insertBefore("#"+target_id);
+                    }
+                }
+            }
+            // TODO: Check data type.
+            // TODO: Check that it's not the original section.
+            if (closestWithClass(e.target, 'section')) {
+                e.preventDefault();
+            }
+        };
+        board.ondragleave = function(e) {
+            // FF is raising this event on text nodes so only check elements.
+            if (e.target.nodeType === 1) {
+                // dragleave for outer elements can trigger after dragenter for inner elements
+                // so make sure we're really leaving by checking what we just entered.
+                // relatedTarget is missing in WebKit: https://bugs.webkit.org/show_bug.cgi?id=66547
+                var section = closestWithClass(e.target, 'section');
+                var card = closestWithClass(e.target,'card');
+                if (section && !section.contains(lastEntered)) {
+                    $('.placeholder',section).remove();
+                }
+            }
+            lastEntered = null; // No need to keep this around.
+        };
+        board.ondrop = function(e) {
+            var section = closestWithClass(e.target, 'section');
+            var id = e.dataTransfer.getData('card');
+            console.log(id);
+            if (id) {
+                var card = document.getElementById(id);
+                // Might be a card from another window.
+                if (card) {
+                    if (section !== card.parentNode) {
+                        $('.placeholder', section).replaceWith(card);
+                    }
+                } else {
+                    alert('couldn\'t find card #' + id);
+                }
+            }
+            $('.placeholder',section).remove();
+            e.preventDefault();
+        };
+        function closestWithClass(target, className) {
+            while (target) {
+                if (target.nodeType === 1 &&
+                    target.classList.contains(className)) {
+                    return target;
+                }
+                target = target.parentNode;
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>
