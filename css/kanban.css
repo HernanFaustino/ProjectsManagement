@@ -44,3 +44,6 @@ body{
 .card.placeholder{
     background-color: #D8D8D8;
 }
+span{
+    display: block;
+}

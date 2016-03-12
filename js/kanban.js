@@ -11,6 +11,7 @@ $(document).ready(function(){
     $("#board").on('selectstart',function(e) {
         e.preventDefault();
     });
+
     $("#board").on('dragstart', function(e){
         e.dataTransfer.setData("card",e.target.id);
         e.dataTransfer.effectAllowed = "move";
@@ -78,10 +79,11 @@ $(document).ready(function(){
             // so make sure we're really leaving by checking what we just entered.
             // relatedTarget is missing in WebKit: https://bugs.webkit.org/show_bug.cgi?id=66547
             var section = closestWithClass(e.target, 'section');
-
             if (lastEntered && section && !section.contains(lastEntered)) {
-
                 $('.placeholder',section).remove();
+            }else{
+                 console.log(e);
+                 console.log(lastEntered);
             }
         }
         lastEntered = null; // No need to keep this around.

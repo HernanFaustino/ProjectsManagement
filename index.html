@@ -1,53 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Kanban Board</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script type="text/javascript" src="js/kanban.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/kanban.css">
+  <meta charset="utf-8">
+  <title>Kanban Board</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+  <script type="text/javascript" src="js/underscore-min.js"></script>
+  <script type="text/javascript" src="js/backbone-min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/kanban.css">
+  <script type="text/javascript">
+    var kanban_view = Backbone.View.extend({
+            base_url:'',
+            initialize: function(){
+                var l = window.location;
+                var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1];
+                this.base_url = base_url;
+            },
+            render: function(datos, context){
+                $.get(this.base_url + '/templates/kanban.html', function (data) {
+                    _.templateSettings.variable = "rc";
+                    template = _.template(data);
+                    $(context).html(template(datos));  
+                }, 'html');
+            }
+
+    });
+    $(document).ready(function(){
+      var endpoint = "http://localhost/kanbanProjects/API/projects/kanban";
+      $.getJSON(endpoint, function(result){
+        var kanban_tag = new kanban_view();
+        kanban_tag.render(result,'#content');
+      });
+    });
+
+  </script>
 </head>
 <body>
-    <h1>Kanban Board</h1>
+  <h1>Kanban Board</h1>
+  
+  <div id="content">
     
-    <div id="board">
-        <div id="new" class="section">
-            <h1>New</h1>
-            <div id="c2" class="card"><em>Proyecto 1</em></div>
-            <div id="c3" class="card"><em>Proyecto 2</em></div>
-            <div id="c5" class="card"><em>Proyecto 5</em><em>Proyecto 5</em><em>Proyecto 5</em><em>Proyecto 5</em><em>Proyecto 5</em>
-            <em>Proyecto 5</em>
-            <em>Proyecto 5</em>
-            <em>Proyecto 5</em>
-            <em>Proyecto 5</em>
-            <em>Proyecto 5</em>
-            </div>
-            <div id="c6" class="card"><em>Proyecto 6</em></div>
-            <div id="c7" class="card"><em>Proyecto 7</em></div>
-            <div id="c8" class="card"><em>Proyecto 8</em></div>
-        </div>
-        <div id="qualification" class="section">
-            <h1>Qualification</h1>
-            <div id="c1" class="card"><em>Proyecto 3</em></div>
-        </div>
-        <div id="proposition" class="section">
-            <h1>Proposition</h1>
-            <div id="c4" class="card"><em>Proyecto 4</em></div>
-        </div>
-        <div id="won" class="section">
-            <h1>Won</h1>
-            <div id="c12" class="card"><em>Proyecto 12</em></div>
-            <div id="c13" class="card"><em>Proyecto 13</em></div>
-            <div id="c14" class="card"><em>Proyecto 14</em></div>
-            <div id="c15" class="card"><em>Proyecto 15</em></div>
-        </div>
-        <div id="lost" class="section">
-            <h1>Lost</h1>
-            <div id="c17" class="card"><em>Proyecto 17</em></div>
-            <div id="c18" class="card"><em>Proyecto 18</em></div>
-            <div id="c19" class="card"><em>Proyecto 19</em></div>
-            <div id="c16" class="card"><em>Proyecto 16</em></div>
-        </div>
-    </div>
+  </div>
 </body>
 </html>

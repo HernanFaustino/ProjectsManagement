@@ -1,0 +1,58 @@
+<script type="text/javascript" src="js/kanban.js"></script>
+<div id="board">
+        <div id="new" class="section">
+            <h1>New</h1>
+            <% _.each( rc.new, function( row ){ %>
+                <div id="<%- row.idproject%>" class="card">
+                    <em><%- row.project_name%></em>
+                    <span><%- row.assignedto%></span>
+                    <span><%- row.customer%></span>
+                    <span><%- row.order%></span>
+                </div>
+            <%});%>
+        </div>
+        <div id="qualification" class="section">
+            <h1>Qualification</h1>
+            <% _.each( rc.qualification, function( row ){ %>
+                <div id="<%- row.idproject%>" class="card">
+                    <em><%- row.project_name%></em>
+                    <span><%- row.assignedto%></span>
+                    <span><%- row.customer%></span>
+                    <span><%- row.order%></span>
+                </div>
+            <%});%>
+        </div>
+        <div id="proposition" class="section">
+            <h1>Proposition</h1>
+            <% _.each( rc.proposition, function( row ){ %>
+                <div id="<%- row.idproject%>" class="card">
+                    <em><%- row.project_name%></em>
+                    <span><%- row.assignedto%></span>
+                    <span><%- row.customer%></span>
+                    <span><%- row.order%></span>
+                </div>
+            <%});%>
+        </div>
+        <div id="won" class="section">
+            <h1>Won</h1>
+            <% _.each( rc.won, function( row ){ %>
+                <div id="<%- row.idproject%>" class="card">
+                    <em><%- row.project_name%></em>
+                    <span><%- row.assignedto%></span>
+                    <span><%- row.customer%></span>
+                    <span><%- row.order%></span>
+                </div>
+            <%});%>
+        </div>
+        <div id="lost" class="section">
+            <h1>Lost</h1>
+            <% _.each( rc.lost, function( row ){ %>
+                <div id="<%- row.idproject%>" class="card">
+                    <em><%- row.project_name%></em>
+                    <span><%- row.assignedto%></span>
+                    <span><%- row.customer%></span>
+                    <span><%- row.order%></span>
+                </div>
+            <%});%>
+        </div>
+    </div>
