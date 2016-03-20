@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="css/kanbanui.css">
+<script src="js/kanbanui.js"></script>
+<div id="kanban-board">
+    <div class="stage">
+        <h2>New</h2>
+        <div id="new" class="connectedSortable stage-list">
+        <% _.each( rc.new, function( row ){ %>
+          <div id="<%- row.idproject%>" class='ui-state-default card'>
+            <span><%- row.project_name%></span>
+            <span><%- row.assignedto%></span>
+            <span><%- row.customer%></span>
+            <span><%- row.order%></span>
+          </div>
+        <%});%>
+        </div>
+    </div>
+
+    <div class="stage">
+        <h2>Qualification</h2>
+        <div id="qualification" class="connectedSortable stage-list">
+        <% _.each( rc.qualification, function( row ){ %>
+          <div id="<%- row.idproject%>" class='ui-state-default card'>
+            <span><%- row.project_name%></span>
+            <span><%- row.assignedto%></span>
+            <span><%- row.customer%></span>
+            <span><%- row.order%></span>
+          </div>
+        <%});%>
+        </div>
+    </div>
+
+    <div class="stage">
+        <h2>Proposition</h2>
+        <div id="proposition" class="connectedSortable stage-list">
+        <% _.each( rc.proposition, function( row ){ %>
+          <div id="<%- row.idproject%>" class='ui-state-default card'>
+            <span><%- row.project_name%></span>
+            <span><%- row.assignedto%></span>
+            <span><%- row.customer%></span>
+            <span><%- row.order%></span>
+          </div>
+        <%});%>
+        </div>
+    </div>
+
+    <div class="stage">
+        <h2>Won</h2>
+        <div id="won" class="connectedSortable stage-list">
+        <% _.each( rc.won, function( row ){ %>
+          <div id="<%- row.idproject%>" class='ui-state-default card'>
+            <span><%- row.project_name%></span>
+            <span><%- row.assignedto%></span>
+            <span><%- row.customer%></span>
+            <span><%- row.order%></span>
+          </div>
+        <%});%>
+        </div>
+    </div>
+
+    <div class="stage">
+        <h2>Lost</h2>
+        <div id="lost" class="connectedSortable stage-list">
+        <% _.each( rc.lost, function( row ){ %>
+          <div id="<%- row.idproject%>" class='ui-state-default card'>
+            <span><%- row.project_name%></span>
+            <span><%- row.assignedto%></span>
+            <span><%- row.customer%></span>
+            <span><%- row.order%></span>
+          </div>
+        <%});%>
+        </div>
+    </div>
+</div>

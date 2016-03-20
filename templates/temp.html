@@ -1,0 +1,105 @@
+  <style>
+  .stage {
+    width: 17%;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    background: red;
+  }
+  .stage{
+    margin-left: 15px;
+  }
+  .card{
+    margin: 5px;
+    background: yellow;
+    height: 40px;
+  }
+  .ghost {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+  border-style: dashed;
+  }
+
+  .dragging {
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    opacity: 0.8;
+  }
+  </style>
+  <script>
+  $(function() {
+    $( ".connectedSortable" ).sortable({
+      revert: true,
+      placeholder: 'drag-place-holder',
+      forcePlaceholderSize: true, 
+      connectWith: ".connectedSortable",
+      helper:function(event, element){return $(element).clone().addClass('dragging');},
+      start: function (e, ui) {ui.item.show().addClass('ghost')},
+      stop: function (e, ui) { ui.item.show().removeClass('ghost')},      
+      cursor:'move'
+    }).disableSelection();
+  });
+  </script>
+ 
+<div id="kanban-board">
+  <div id="new" class="connectedSortable stage">
+    <% _.each( rc.new, function( row ){ %>
+      <div id="<%- row.idproject%>" class='ui-state-default card'>
+        <em><%- row.project_name%></em>
+        <span><%- row.assignedto%></span>
+        <span><%- row.customer%></span>
+        <span><%- row.order%></span>
+      </div>
+    <%});%>
+  </div>
+   
+  <div id="qualification" class="connectedSortable stage">
+    <% _.each( rc.qualification, function( row ){ %>
+      <div id="<%- row.idproject%>" class='ui-state-default card'>
+        <em><%- row.project_name%></em>
+        <span><%- row.assignedto%></span>
+        <span><%- row.customer%></span>
+        <span><%- row.order%></span>
+      </div>
+    <%});%>
+  </div>
+
+  <div id="proposition" class="connectedSortable stage">
+    <% _.each( rc.proposition, function( row ){ %>
+      <div id="<%- row.idproject%>" class='ui-state-default card'>
+        <em><%- row.project_name%></em>
+        <span><%- row.assignedto%></span>
+        <span><%- row.customer%></span>
+        <span><%- row.order%></span>
+      </div>
+    <%});%>
+  </div>
+
+  <div id="won" class="connectedSortable stage">
+   <% _.each( rc.won, function( row ){ %>
+      <div id="<%- row.idproject%>" class='ui-state-default card'>
+        <em><%- row.project_name%></em>
+        <span><%- row.assignedto%></span>
+        <span><%- row.customer%></span>
+        <span><%- row.order%></span>
+      </div>
+    <%});%>
+  </div>
+
+  <div id="lost" class="connectedSortable stage">
+    <% _.each( rc.lost, function( row ){ %>
+      <div id="<%- row.idproject%>" class='ui-state-default card'>
+        <em><%- row.project_name%></em>
+        <span><%- row.assignedto%></span>
+        <span><%- row.customer%></span>
+        <span><%- row.order%></span>
+      </div>
+    <%});%>
+  </div>
+</div>

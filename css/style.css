@@ -1,0 +1,20 @@
+body{
+    background: #4BBF6B;
+}
+.createbutton {
+    background-color: #3A9550; /* Green */
+    border-radius: 3px;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.createbutton:hover{
+	background: #2E7740;
+}

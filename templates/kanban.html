@@ -13,6 +13,8 @@
         </div>
         <div id="qualification" class="section">
             <h1>Qualification</h1>
+            <div id="<%- row.idproject%>" class="card">
+            </div>
             <% _.each( rc.qualification, function( row ){ %>
                 <div id="<%- row.idproject%>" class="card">
                     <em><%- row.project_name%></em>

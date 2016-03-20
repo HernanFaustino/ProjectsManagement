@@ -1,0 +1,42 @@
+.stage  .stage-list{
+    min-height: 40px;
+}
+.stage{
+    border-radius: 3px;
+    width: 17%;
+    list-style-type: none;
+    margin: 0;
+    float: left;
+    padding : 5px;
+    margin-right: 10px;
+    background: #e2e4e6;
+    font: 14px "Helvetica Neue",Arial,Helvetica,sans-serif;
+    padding: 5px;
+}
+.card{
+    border-bottom: 1px solid #ccc;
+    border-radius: 3px;
+    height: 60px;
+    margin: 5px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.stage h2{
+    margin: 1px;
+    font-size: 15px;
+}
+.ghost {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+    opacity: 0.4;
+    border-style: dashed;
+}
+
+.dragging {
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    opacity: 0.8;
+}

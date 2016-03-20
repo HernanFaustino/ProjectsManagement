@@ -1,0 +1,24 @@
+<%console.log(rc.idproject)%>
+<div class="remodal" data-remodal-id="<%-rc.idproject%>" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+            <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+     <div class="project-view">
+     	<h2>Project View</h2>
+     	<div>Project name: <%-rc.project_name%></div>
+     	<div>Prjecct assigned to: <%- rc.assignedto%></div>
+     	<div>Project customer: <%- rc.customer%></div>
+     	<div>Project stage: <%- rc.stage%></div>
+     	<div>Project order: <%-rc.order%></div>
+     	<div>Project priority: <%- rc.priority%></div>
+     	<div>
+     		<h3>Comments</h3>
+     		<textarea name="commentbox" id="commentbox-<%-rc.idproject%>" cols="40" rows="3"></textarea>
+     		<button>Enviar</button>
+     	</div>
+     </div>
+            
+</div>
+<style>
+	.project-view{
+		text-align: left;
+	}
+</style>
